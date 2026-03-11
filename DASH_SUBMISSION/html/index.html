@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>CSI_6_SIT DASH Player</title>
+	<!-- dash.js from CDN -->
+	<script src="https://cdn.dashjs.org/latest/dash.all.min.js"></script>
+	<style>
+		body { font-family: sans-serif; text-align: center; background: #f0f0f0; }
+		video {width: 80%; max-width: 800px; background: #000; margin: 20px auto; display: block; }
+		.input-area {padding: 20px; background: #fff; border-bottom: 2px solid #ccc; }
+		input {width: 400px; padding: 10px; }
+		button { padding: 10px 20px; cursor: pointer; background: #007bff; color: white; border: none; }
+	</style>
+</head>
+<body>
+	<div class="input-area">
+		<h1> Smart Internet Technologies Player </h1>
+		<input type="text" id="manifestUrl" placeholder="your video link">
+		<button onclick="playVideo()">Stream It!</button>
+	</div>
+
+	<video id="videoPlayer" controls> </video>
+
+	<script>
+
+		function playVideo() {
+			const url = document.getElementById ('manifestUrl').value;
+			const video = document.querySelector("#videoPlayer");
+			const player = dashjs.MediaPlayer().create();
+			player.initialize(video, url, true);
+		}
+	</script>
+</body>
+</html>
+
