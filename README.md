@@ -81,7 +81,7 @@ I downloaded two HD source videos from:
 
 Local input files:
 - `video1_hd.mp4`
-- `video1_hd.mp4`
+- `videoB_hd.mp4`
 
 I transcoded each source to 3 target bitrates.
 
@@ -94,7 +94,7 @@ ffmpeg -i video1_hd.mp4 -c:v libx264 -preset veryfast -b:v 4000k -maxrate 4000k 
 
 Commands for Video B:
 ```bash
-ffmpeg -i video2_hd.mp4 -c:v libx264 -preset veryfast -b:v 1500k -maxrate 1500k -bufsize 3000k -c:a aac -b:a 128k video2_1500.mp4
+ffmpeg -i videoB_hd.mp4 -c:v libx264 -preset veryfast -b:v 1500k -maxrate 1500k -bufsize 3000k -c:a aac -b:a 128k video2_1500.mp4
 ffmpeg -i videoB_hd.mp4 -c:v libx264 -preset veryfast -b:v 2000k -maxrate 2000k -bufsize 4000k -c:a aac -b:a 128k video2_2000.mp4
 ffmpeg -i videoB_hd.mp4 -c:v libx264 -preset veryfast -b:v 4000k -maxrate 4000k -bufsize 8000k -c:a aac -b:a 128k video2_4000.mp4
 ```
