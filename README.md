@@ -197,6 +197,11 @@ successful HTTP access to both MPDs.
 ### 3.5 Step 5: Client VM playback using DASH player
 On the client VM, I used a dash.js-based HTML page to play both MPD URLs.
 
+<img width="1280" height="193" alt="client vm created and can be able to communicate with server vm through the internet 1" src="https://github.com/user-attachments/assets/fba1e347-ea06-4e7c-a325-193186af173a" />
+client vm created and can be able to communicate with server vm through the internet 
+<img width="1280" height="178" alt="server vm can be able to communicate with the new client vm created through the internet " src="https://github.com/user-attachments/assets/1485839b-99ce-4a48-ba2b-d3594a41b928" />
+server vm can be able to communicate with the new client vm created through the internet
+
 Connectivity tests:
 ping -c 4 8.8.8.8
 curl -I http://SERVER_PUBLIC_IP/streams/video1/manifest.mpd
