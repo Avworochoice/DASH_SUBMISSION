@@ -98,8 +98,9 @@ ffmpeg -i videoB_hd.mp4 -c:v libx264 -preset veryfast -b:v 2000k -maxrate 2000k 
 ffmpeg -i videoB_hd.mp4 -c:v libx264 -preset veryfast -b:v 4000k -maxrate 4000k -bufsize 8000k -c:a aac -b:a 128k video2_4000.mp4
 ```
 
+<img width="1280" height="800" alt="server 1" src="https://github.com/user-attachments/assets/53357818-3f27-4dd0-8ded-f13284ef1a3d" />
 
-![alt text](<server 1.png>)
+
 transcoding command execution and generated files list.
 
 ### 3.3 Step 3: Create DASH manifests with FFmpeg
@@ -132,10 +133,12 @@ ls -lh ~/ffmpeg_lab/dash/video2
 Output:
 - One `.mpd` file plus `.m4s` segments per representation for each video.
 
-![alt text](<Corrected FFmpeg DASH packaging process for Video 2 creating MPD and chunk files..png>)
- Corrected FFmpeg DASH packaging process for Video 2 creating MPD and chunk files
+<img width="1280" height="800" alt="Corrected FFmpeg DASH packaging process for Video 2 creating MPD and chunk files" src="https://github.com/user-attachments/assets/3c84ae50-cc59-4b7c-bb02-c9096a86f1d8" />
 
-![alt text](<DASH output directory with manifest and segment files..png>)
+ Corrected FFmpeg DASH packaging process for Video 2 creating MPD and chunk files
+ 
+<img width="1280" height="800" alt="DASH output directory with manifest and segment files" src="https://github.com/user-attachments/assets/cd08e64e-75e7-4030-854a-17005e25e06f" />
+
  DASH output directory with manifest and segment files.
 
 ### 3.4 Step 4: Serve each stream via unique URL
@@ -163,10 +166,11 @@ sudo chmod -R 755 /var/www/html/streams
 Allow HTTP firewall (if UFW enabled):
 sudo ufw allow 80/tcp
 sudo ufw status
-
-![alt text](<server Apache enabled DASH content copied into varwwwhtmlstreams and server IP confirmed-1.png>)
+```
+<img width="1280" height="448" alt="server Apache enabled DASH content copied into varwwwhtmlstreams and server IP confirmed - Copy" src="https://github.com/user-attachments/assets/6904e407-fb6c-4139-8644-f1ab1f8e92b0" />
+Apache started,
 Apache enabled, DASH content copied into /var/www/html/streams, and server IP confirmed.
-
+```
 ```
 Unique playout URLs (replace SERVER_PUBLIC_IP):
 Accessible URLs :
