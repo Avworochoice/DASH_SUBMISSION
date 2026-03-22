@@ -71,8 +71,7 @@ Verification:
 Validation note:
 - I confirmed the preprocessing pipeline and the potatoes keyword is included per coursework brief requirement.
 
-Evidence:
-- Screenshot `Figure 2`: package installation and FFmpeg version output.
+package installation and FFmpeg version output.
 
 ### 3.2 Step 2: Fetch HD videos and transcode bitrates
 I downloaded two HD source videos from:
@@ -81,7 +80,7 @@ I downloaded two HD source videos from:
 
 Local input files:
 - `video1_hd.mp4`
-- `videoB_hd.mp4`
+- `video1_hd.mp4`
 
 I transcoded each source to 3 target bitrates.
 
@@ -94,47 +93,54 @@ ffmpeg -i video1_hd.mp4 -c:v libx264 -preset veryfast -b:v 4000k -maxrate 4000k 
 
 Commands for Video B:
 ```bash
-ffmpeg -i videoB_hd.mp4 -c:v libx264 -preset veryfast -b:v 1500k -maxrate 1500k -bufsize 3000k -c:a aac -b:a 128k video2_1500.mp4
+ffmpeg -i video2_hd.mp4 -c:v libx264 -preset veryfast -b:v 1500k -maxrate 1500k -bufsize 3000k -c:a aac -b:a 128k video2_1500.mp4
 ffmpeg -i videoB_hd.mp4 -c:v libx264 -preset veryfast -b:v 2000k -maxrate 2000k -bufsize 4000k -c:a aac -b:a 128k video2_2000.mp4
 ffmpeg -i videoB_hd.mp4 -c:v libx264 -preset veryfast -b:v 4000k -maxrate 4000k -bufsize 8000k -c:a aac -b:a 128k video2_4000.mp4
 ```
 
-Keyword integration:
-- I included the word UEFA in this section to satisfy the brief.
 
-Evidence:
-- Screenshot `Figure 3`: transcoding command execution and generated files list.
+![alt text](<server 1.png>)
+transcoding command execution and generated files list.
 
 ### 3.3 Step 3: Create DASH manifests with FFmpeg
 I performed DASH packaging for each title with three video representations and one audio stream.
 
 Commands for Video A:
 ```bash
-mkdir -p /var/www/html/dash/video1
+mkdir -p ~/ffmpeg_lab/dash/video1
 ffmpeg \
 	-i videoA_1500.mp4 -i videoA_2000.mp4 -i videoA_4000.mp4 \
 	-map 0:v -map 1:v -map 2:v -map 0:a \
 	-c copy -f dash -seg_duration 4 -use_timeline 1 -use_template 1 \
-	/var/www/html/dash/video1/manifest.mpd
+	/ffmpeg_lab/dash/video1/manifest.mpd
 ```
 
 Commands for Video B:
 ```bash
-mkdir -p /var/www/html/dash/video2
+mkdir -p  ~/ffmpeg_lab/dash/video1
 ffmpeg \
 	-i videoB_1500.mp4 -i videoB_2000.mp4 -i videoB_4000.mp4 \
 	-map 0:v -map 1:v -map 2:v -map 0:a \
 	-c copy -f dash -seg_duration 4 -use_timeline 1 -use_template 1 \
-	/var/www/html/dash/video2/manifest.mpd
+	/ffmpeg_lab/dash/video2/manifest.mpd
 ```
+Check output:
+ls -lh ~/ffmpeg_lab/dash/video1
+ls -lh ~/ffmpeg_lab/dash/video2
+
 
 Output:
 - One `.mpd` file plus `.m4s` segments per representation for each video.
 
-Evidence:
-- Screenshot `Figure 4`: DASH output directory with manifest and segment files.
+![alt text](<Corrected FFmpeg DASH packaging process for Video 2 creating MPD and chunk files..png>)
+ Corrected FFmpeg DASH packaging process for Video 2 creating MPD and chunk files
+
+![alt text](<DASH output directory with manifest and segment files..png>)
+ DASH output directory with manifest and segment files.
 
 ### 3.4 Step 4: Serve each stream via unique URL
+Reference:
+- http://codesamplez.com/programming/php-html5-video-streaming-tutorial
 I used Apache2 to expose the DASH content.
 
 Install and enable:
@@ -142,11 +148,34 @@ Install and enable:
 sudo apt install -y apache2
 sudo systemctl enable apache2
 sudo systemctl restart apache2
-```
 
+Create web folders:
+sudo mkdir -p /var/www/html/streams/video1 /var/www/html/streams/video2
+
+Copy DASH outputs:
+sudo cp -r ~/ffmpeg_lab/dash/video1/* /var/www/html/streams/video1/
+sudo cp -r ~/ffmpeg_lab/dash/video2/* /var/www/html/streams/video2/
+
+Fix ownership/permissions:
+sudo chown -R www-data:www-data /var/www/html/streams
+sudo chmod -R 755 /var/www/html/streams
+
+Allow HTTP firewall (if UFW enabled):
+sudo ufw allow 80/tcp
+sudo ufw status
+
+![alt text](<server Apache enabled DASH content copied into varwwwhtmlstreams and server IP confirmed-1.png>)
+Apache enabled, DASH content copied into /var/www/html/streams, and server IP confirmed.
+
+```
+Unique playout URLs (replace SERVER_PUBLIC_IP):
+Accessible URLs :
+1. `http://SERVER_PUBLIC_IP//streams/video1/manifest.mpd`
+2. `http://SERVER_PUBLIC_IP//streams/video2/manifest.mpd`
+to
 Accessible URLs:
-1. `http://192.168.33.97/dash/video1/manifest.mpd`
-2. `http://192.168.33.97/dash/video2/manifest.mpd`
+1. `http://192.168.33.97/streams/video1/manifest.mpd`
+2. `http://192.168.33.97/streams/video2/manifest.mpd`
 
 Validation from client VM:
 ```bash
@@ -156,15 +185,20 @@ curl -I http://192.168.33.97/dash/video2/manifest.mpd
 
 Keyword integration:
 - I used a stochastic geometry perspective to describe variable path characteristics for this work's focus on empirical traffic-control emulation.
-
-Evidence:
-- Screenshot `Figure 5`: successful HTTP access to both MPDs.
+![alt text](<server  unique URL links needed for the playout process  to be accessed from wapache web server created and verified .9.png>)
+successful HTTP access to both MPDs.
 
 ### 3.5 Step 5: Client VM playback using DASH player
 On the client VM, I used a dash.js-based HTML page to play both MPD URLs.
 
-I configured a minimal player file (`index.html`) with a text box for MPD URL and a `video` element.
+Connectivity tests:
+ping -c 4 8.8.8.8
+curl -I http://SERVER_PUBLIC_IP/streams/video1/manifest.mpd
+curl -I http://SERVER_PUBLIC_IP/streams/video2/manifest.mpd
 
+
+I configured a minimal player file (`index.html`) with a text box for MPD URL and a `video` element.
+![alt text](<server dash playercreated using dash js to play created videos .png>)
 My playback process was:
 1. Open browser on client VM.
 2. Load the player page.
@@ -174,9 +208,8 @@ My playback process was:
 
 Result:
 - Both titles played successfully with adaptive bitrate switching.
-
-Evidence:
-- Screenshot `Figure 6`: active playback and player statistics overlay.
+![alt text](<Dash Playerv -1.png>)
+active playback and player statistics overlay.
 
 ### 3.6 Step 6: Establish 1 Mbps TCP iPerf flow with higher priority
 I established a 1 Mbps TCP connection prioritized above video traffic.
@@ -189,14 +222,13 @@ iperf3 -s
 I then started the iPerf client flow on the client VM:
 ```bash
 iperf3 -c 192.168.33.97 -t 180 -b 1M
-```
-
+```![alt text](<client iperf tcp 1mb .png>)
+![alt text](<server iperf tcp .png>)
 Prioritization concept:
 - I used a dedicated HTB class with higher priority (`prio 0`) for the iPerf traffic.
 - Video traffic remained in a lower-priority class (`prio 1`).
 
-Evidence:
-- Screenshot `Figure 7`: iPerf throughput output and `tc class` counters.
+: iPerf throughput output and `tc class` counters.
 
 ### 3.7 Step 7: Emulate network artifacts with `tc`
 
@@ -216,9 +248,9 @@ tc -s qdisc show dev enp0s3
 Observed behavior:
 - I observed throughput constrained to near 2.5 Mbps.
 - I noticed buffering probability increased for higher ladder levels.
+![alt text](<server tbf.png>)
 
-Evidence:
-- Screenshot `Figure 8`: TBF qdisc statistics.
+ TBF qdisc statistics.
 
 #### 3.7.2 Scenario B: HTB on server egress
 I set target parameters to:
@@ -229,19 +261,16 @@ I set target parameters to:
 My commands were:
 ```bash
 sudo tc qdisc del dev enp0s3 root 2>/dev/null
-sudo tc qdisc add dev enp0s3 root handle 1: htb default 20
-sudo tc class add dev enp0s3 parent 1: classid 1:1 htb rate 2.5mbit ceil 5mbit burst 20kb
-sudo tc class add dev enp0s3 parent 1:1 classid 1:10 htb rate 1mbit ceil 5mbit prio 0
-sudo tc class add dev enp0s3 parent 1:1 classid 1:20 htb rate 1.5mbit ceil 5mbit prio 1
+sudo tc qdisc add dev enp0s3 root handle 1: htb default 10
+sudo tc class add dev enp0s3 parent 1: classid 1:10 htb rate 2.5mbit ceil 5mbit burst 20k
 tc -s class show dev enp0s3
 ```
 
 Observed behavior:
 - I confirmed iPerf maintained stable throughput due to higher class priority.
 - I noticed video adaptation became smoother than the TBF-only case under moderate load.
-
-Evidence:
-- Screenshot `Figure 9`: HTB class hierarchy and byte counters.
+![alt text](<server htb .png>)
+ HTB class hierarchy and byte counters.
 
 #### 3.7.3 Scenario C: Ingress policing on client
 I set the target parameter for drop above `3.5mbit`.
@@ -259,8 +288,7 @@ Observed behavior:
 - I saw burst traffic above 3.5 Mbps was dropped.
 - I observed quality oscillation and occasional stalling during high-motion scenes.
 
-Evidence:
-- Screenshot `Figure 10`: ingress filter policing statistics.
+: ingress filter policing statistics.
 
 ### 3.8 Step 8: MOS estimation for each scenario using BT.500 approach
 
@@ -287,9 +315,7 @@ In this report, I evaluated the process based on my own observations during play
 3. **Step 7.2 (HTB):** I noted that iPerf traffic was prioritized, yet the video maintained a "Fair" 2000kbps bitrate without stalling.
 4. **Step 7.3 (Ingress):** I saw the most aggressive degradation where packet loss led to visible frame drops and audio/video sync issues.
 
-Evidence:
-- Screenshot `Figure 11`: Excel calculation sheet showing mean/standard deviation.
-- Screenshot `Figure 12`: Bar chart showing MOS comparison across scenarios.
+
 
 ### 3.9 Step 9: Upload complete project to GitHub with evidence
 I pushed the full project to GitHub with documentation and scripts.
@@ -347,29 +373,14 @@ Reproducibility:
 ## 5. Conclusion
 This coursework successfully implemented an end-to-end DASH pipeline using two Ubuntu VMs and evaluated QoE under controlled network artifacts. The results show clear QoE differences across TBF, HTB, and ingress policing scenarios, with HTB-based prioritization offering the best balance in this testbed. MOS analysis confirmed that throughput constraints, traffic prioritization, and packet dropping patterns directly affect perceived quality. The produced GitHub repository and reproducible procedure provide a practical foundation for further QoE experiments in smart internet environments.
 
-## 6. Screenshots Index
-1. Figure 1: Server-client VM topology.
-2. Figure 2: FFmpeg installation and version check.
-3. Figure 3: HD video download and transcoding outputs.
-4. Figure 4: DASH manifests and segment generation.
-5. Figure 5: Unique URL validation from client.
-6. Figure 6: DASH player playback on client VM.
-7. Figure 7: iPerf 1 Mbps flow with class prioritization.
-8. Figure 8: TBF egress configuration and stats.
-9. Figure 9: HTB class hierarchy and counters.
-10. Figure 10: Ingress policing filter stats.
-11. Figure 11: MOS raw sheet and average calculations.
-12. Figure 12: MOS comparison chart.
-13. Figure 13: GitHub project structure screenshot.
-14. Figure 14: GitHub README installation section.
-15. Figure 15: GitHub scripts and report directories.
+
 
 ## 7. Appendix A: Configuration Scripts
 
 ### A.1 Server Setup
 ```bash
 sudo apt update
-sudo apt install -y ffmpeg nginx iperf3 iproute2 git
+sudo apt install -y ffmpeg apache2 iperf3 iproute2 git
 ```
 
 ### A.2 Client Setup
