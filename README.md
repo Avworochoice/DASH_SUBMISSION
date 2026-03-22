@@ -248,7 +248,8 @@ tc -s qdisc show dev enp0s3
 Observed behavior:
 - I observed throughput constrained to near 2.5 Mbps.
 - I noticed buffering probability increased for higher ladder levels.
-![alt text](<server tbf.png>)
+
+<img width="1280" height="129" alt="server tbf" src="https://github.com/user-attachments/assets/ae9cce59-da02-4de7-a934-aaff6b29671c" />
 
  TBF qdisc statistics.
 
@@ -269,7 +270,9 @@ tc -s class show dev enp0s3
 Observed behavior:
 - I confirmed iPerf maintained stable throughput due to higher class priority.
 - I noticed video adaptation became smoother than the TBF-only case under moderate load.
-![alt text](<server htb .png>)
+- 
+<img width="1280" height="146" alt="server htb " src="https://github.com/user-attachments/assets/9dee9e63-930e-4662-bb2b-26efa421e6ad" />
+
  HTB class hierarchy and byte counters.
 
 #### 3.7.3 Scenario C: Ingress policing on client
