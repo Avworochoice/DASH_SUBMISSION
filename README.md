@@ -228,6 +228,8 @@ Prioritization concept:
 - I used a dedicated HTB class with higher priority (`prio 0`) for the iPerf traffic.
 - Video traffic remained in a lower-priority class (`prio 1`)
 .
+```
+
 <img width="1280" height="800" alt="server iperf tcp " src="https://github.com/user-attachments/assets/2bbbac25-a37f-4f1c-8537-66e35606c534" />
 
 <img width="1280" height="76" alt="client iperf tcp 1mb " src="https://github.com/user-attachments/assets/6ee99848-e2a5-4920-83b7-0d94c6462bd6" />
