@@ -185,7 +185,9 @@ curl -I http://192.168.33.97/dash/video2/manifest.mpd
 
 Keyword integration:
 - I used a stochastic geometry perspective to describe variable path characteristics for this work's focus on empirical traffic-control emulation.
-![alt text](<server  unique URL links needed for the playout process  to be accessed from wapache web server created and verified .9.png>)
+  
+<img width="1280" height="335" alt="server  unique URL links needed for the playout process  to be accessed from wapache web server created and verified  9" src="https://github.com/user-attachments/assets/4c50ce98-c9e7-4d4f-b647-61d11de4a4da" />
+
 successful HTTP access to both MPDs.
 
 ### 3.5 Step 5: Client VM playback using DASH player
@@ -198,7 +200,8 @@ curl -I http://SERVER_PUBLIC_IP/streams/video2/manifest.mpd
 
 
 I configured a minimal player file (`index.html`) with a text box for MPD URL and a `video` element.
-![alt text](<server dash playercreated using dash js to play created videos .png>)
+<img width="1280" height="422" alt="server dash playercreated using dash js to play created videos " src="https://github.com/user-attachments/assets/5a4ca1a4-c770-46ab-915c-6d161d1f0042" />
+
 My playback process was:
 1. Open browser on client VM.
 2. Load the player page.
@@ -208,7 +211,9 @@ My playback process was:
 
 Result:
 - Both titles played successfully with adaptive bitrate switching.
-![alt text](<Dash Playerv -1.png>)
+- 
+<img width="655" height="429" alt="Dash Playerv " src="https://github.com/user-attachments/assets/6d8d6f82-1aff-43f3-83f2-7f59a1abddd6" />
+
 active playback and player statistics overlay.
 
 ### 3.6 Step 6: Establish 1 Mbps TCP iPerf flow with higher priority
