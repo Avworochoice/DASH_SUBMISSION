@@ -356,7 +356,7 @@ Minimum required screenshot evidence included:
 3. Scripts and report folder contents.
 
 Repository URL placeholder:
-- `<https://github.com/your-username/your-repo-name>`
+- `<(https://github.com/Avworochoice/avworochoice>`
 
 ### 3.10 Step 10: Narrative analysis
 
