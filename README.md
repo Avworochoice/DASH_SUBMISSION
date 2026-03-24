@@ -25,6 +25,19 @@ The aim of this coursework is to build a complete DASH test environment and eval
 4. Evaluate user experience via MOS.
 5. Document reproducible procedures in GitHub.
 
+### 1.3 Repository Structure
+The cloned repository at `DASH_SUBMISSION` contains the following top-level items:
+1. `about.md`: Project overview, structure summary, installation requirements, and deployment notes.
+2. `README.md`: Main coursework report and implementation narrative.
+3. `screenshots/`: Screenshot evidence used for report figures and GitHub documentation.
+4. `DASH_SUBMISSION/`: Main project directory containing the media workflow, report, and scripts.
+
+Inside `DASH_SUBMISSION/`, the main components are:
+1. `ffmpeg_lab/`: Working media directory containing source and transcoded video files, plus generated DASH output under `ffmpeg_lab/dash/video1` and `ffmpeg_lab/dash/video2`.
+2. `html/`: Web delivery directory containing `index.html` and published stream folders under `html/streams/video1` and `html/streams/video2`.
+3. `report/`: Report directory containing `REPORT.md`.
+4. `scripts/`: Shell scripts for setup, transcoding, DASH packaging, and traffic-control scenarios.
+
 ## 2. Experimental Testbed
 
 ### 2.1 Virtual Machine Setup
@@ -344,11 +357,13 @@ In this report, I evaluated the process based on my own observations during play
 I pushed the full project to GitHub with documentation and scripts.
 
 My repository sections include:
-1. `README.md` with setup and deployment instructions.
-2. `scripts/` containing ffmpeg and tc command scripts.
-3. `dash/` for generated manifests and segment structure.
-4. `report/` containing this report and the evidence index.
-5. `screenshots/` with command and topology proof.
+1. `about.md` with project overview and deployment summary.
+2. `README.md` with the full coursework write-up and implementation evidence.
+3. `screenshots/` with command and topology proof.
+4. `DASH_SUBMISSION/scripts/` containing ffmpeg and tc command scripts.
+5. `DASH_SUBMISSION/ffmpeg_lab/` containing media files and generated DASH assets.
+6. `DASH_SUBMISSION/html/` containing the player page and published stream folders.
+7. `DASH_SUBMISSION/report/` containing this report.
 
 Minimum required screenshot evidence included:
 1. GitHub root structure.
@@ -390,7 +405,7 @@ Limitations:
 
 Reproducibility:
 1. All commands are listed in this report.
-2. Scripted versions are included in repository `scripts/`.
+2. Scripted versions are included in repository `DASH_SUBMISSION/scripts/`.
 3. Evidence screenshots map each step to outputs.
 
 ## 5. Conclusion
