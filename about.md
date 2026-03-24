@@ -6,10 +6,16 @@ This repository contains the implementation for Choice Avworo (Student ID: 49791
 The project demonstrates a Dynamic Adaptive Streaming over HTTP (DASH) testbed used to evaluate network performance and video quality under various traffic conditions.
 
 ## 2. Project Structure
-- `dash/`: Contains the video manifest (`.mpd`) and segments (`.m4s`).
-- `index.html`: The web player for viewing the DASH content.
-- `report/`: Detailed lab report covering all 10 steps of the analysis.
-- `scripts/`: Shell scripts for network emulation (TC) and iPerf traffic generation.
+- `about.md`: Project summary and deployment overview.
+- `README.md`: Main coursework write-up and implementation narrative.
+- `screenshots/`: Evidence images used for the report figures.
+- `DASH_SUBMISSION/`: Main project folder containing the streaming assets, report, and scripts.
+
+Inside `DASH_SUBMISSION/`:
+- `ffmpeg_lab/`: Source and transcoded video files together with generated DASH output in `ffmpeg_lab/dash/video1` and `ffmpeg_lab/dash/video2`.
+- `html/`: Web player files, including `index.html` and published stream folders under `html/streams/video1` and `html/streams/video2`.
+- `report/`: Detailed lab report files, including `REPORT.md`.
+- `scripts/`: Shell scripts for setup, transcoding, DASH packaging, and Linux traffic-control scenarios.
 
 ## 3. Installation & Requirements
 1. **Operating System:** Ubuntu 22.04 LTS (2 VMs: Server and Client).

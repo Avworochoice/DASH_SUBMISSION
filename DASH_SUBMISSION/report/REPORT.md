@@ -30,13 +30,19 @@ The aim of this coursework is to build a complete DASH test environment and eval
 
 ## 3. Project Structure
 
-The repository structure described in the source files includes the following major components:
+The cloned repository contains the following top-level components:
 
-1. `dash/`: Contains the generated DASH manifests (`.mpd`) and media segments (`.m4s`).
-2. `index.html`: DASH player page used for stream playback.
-3. `report/`: Detailed lab report covering all ten coursework steps.
-4. `scripts/`: Shell scripts for FFmpeg processing, network emulation, and traffic generation.
-5. `screenshots/`: Command output and topology evidence used in the report.
+1. `about.md`: Project overview, structure summary, installation requirements, and deployment notes.
+2. `README.md`: Main coursework narrative and implementation evidence.
+3. `screenshots/`: Screenshot evidence for report figures and GitHub documentation.
+4. `DASH_SUBMISSION/`: Main project directory containing the streaming assets and executable scripts.
+
+Inside `DASH_SUBMISSION/`, the major components are:
+
+1. `ffmpeg_lab/`: Working media directory containing source and transcoded video files, plus generated DASH output under `ffmpeg_lab/dash/video1` and `ffmpeg_lab/dash/video2`.
+2. `html/`: Web delivery directory containing `index.html` and published stream folders under `html/streams/video1` and `html/streams/video2`.
+3. `report/`: Detailed lab report folder containing `REPORT.md`.
+4. `scripts/`: Shell scripts for FFmpeg processing, setup, and traffic-control scenarios.
 
 The scripted components referenced for reproducibility are:
 
@@ -399,10 +405,12 @@ The GitHub deliverables identified in the source files include:
 The report states that the repository should include:
 
 1. `README.md` with setup and deployment instructions
-2. `scripts/` with FFmpeg and traffic-control commands
-3. `dash/` with generated manifests and segments
-4. `report/` with the written report and evidence index
-5. `screenshots/` with supporting evidence
+2. `about.md` with project overview and deployment summary
+3. `DASH_SUBMISSION/scripts/` with FFmpeg and traffic-control commands
+4. `DASH_SUBMISSION/ffmpeg_lab/` with media files and generated DASH assets
+5. `DASH_SUBMISSION/html/` with the player page and published stream folders
+6. `DASH_SUBMISSION/report/` with the written report
+7. `screenshots/` with supporting evidence
 
 ## 12. Verification Checklist
 
